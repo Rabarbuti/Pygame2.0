@@ -17,7 +17,5 @@ As quatro manilhas possiveis tem orderm de força sendo ouros<espadas<copas<paus
 
 E todas as demais cartas possuem oredem crescente sendo: 4<5<6<7<Q<J<K<A<2<3.
 
-Aproveite a experiência de ' As escuras com Maciel '!
+Aproveite a experiência de ' Truco as escuras'!
 
-Link para a demonstração do jogo: 
-https://youtu.be/Ni8nRKloKV0
