@@ -18,8 +18,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT),0,32)
 pygame.display.set_caption('Soletra Insper')
 imagem_fundo_inicial = pygame.image.load('imagens/inicio.png') #colocar iamgem de fundo aq
 imagem_fundo_inicial = pygame.transform.scale(imagem_fundo_inicial, (WIDTH, HEIGHT))  
-fonte = pygame.font.Font('comic.ttf', 40)
-fonte_jogo = pygame.font.match_font('comic.ttf')
+fonte_jogo = pygame.font.match_font('Algerian')
 velocidade_da_palavra_medio = 0.5
 pontuacao = 0
 morreu = True
@@ -109,10 +108,10 @@ def texto(screen, texto, tamanho, i, j):
 def telaInicial_telaFinal():
     screen.blit(imagem_fundo_inicial, (0, 0))
     if not morreu:
-        texto(screen, "Infelizmente você perdeu", 90, WIDTH / 2, HEIGHT - 200)
-        texto(screen, "Mas sua pontuação foi de: " + str(pontuacao) + ' pontos', 70, WIDTH / 2, HEIGHT -100)
+        texto(screen, "Infelizmente você perdeu", 30, WIDTH / 2, HEIGHT - 200)
+        texto(screen, "Mas sua pontuação foi de: " + str(pontuacao) + ' pontos', 30, WIDTH / 2, HEIGHT -100)
     else:
-        texto(screen, "Clique qualquer tecla para iniciar o Soletra Insper", 54, WIDTH / 2, 500)
+        texto(screen, "Clique qualquer tecla para iniciar o Soletra Insper", 30, WIDTH / 2, 500)
     pygame.display.flip()
     bandeira = True
     while bandeira:
@@ -139,13 +138,14 @@ while True:
     personagem = pygame.image.load('imagens/raposa.png')
     personagem = pygame.transform.scale(personagem, (75,75))
 
+    #alterando tela de fundo
     screen.blit(fundo_jogo, (0,0))
 
     #indicando a posição onde cada elemento da tela vai ficar
     yp += velocidade_da_palavra_medio
     screen.blit(personagem, (xp, yp))
-    texto(screen, palavras_jogo, 50, xp+35,yp-40)
-    texto(screen, 'Pontos' + str(pontuacao), 40, WIDTH/2,5)
+    texto(screen, palavras_jogo, 40, xp+35,yp-40)
+    texto(screen, 'Pontos:  ' + str(pontuacao), 40, WIDTH/2,5)
     texto(screen, jogador_escrevendo, 50, WIDTH/2, 150)
 
 
@@ -168,7 +168,7 @@ while True:
                 time.sleep(3)
                 pygame.quit()
     
-    #indicando que caso o yp fica abaixo de certa altura, o jogador perde
+    #colocando uma altura minima que a figura do personagem possa chegar, caso ultrapasse, ele ira perder
     if yp < HEIGHT - 80:
         pygame.display.update()
     else:

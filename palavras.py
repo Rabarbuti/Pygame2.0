@@ -1,3 +1,4 @@
+#lista de palavras
 medio = [
     'horas',
     'molas',
@@ -10580,4 +10581,18 @@ medio = [
     "visar"
 ]
 
-dificeis = []
+#codigo para tirar o acento das palavras
+final = []
+for palavra in medio:
+    palavra = palavra.replace('á','a')
+    palavra = palavra.replace('ã','a')
+    palavra = palavra.replace('â','a')
+    palavra = palavra.replace('í','i')
+    palavra = palavra.replace('ó','o')
+    palavra = palavra.replace('ô','o')
+    palavra = palavra.replace('é','e')
+    palavra = palavra.replace('ê','e')
+    palavra = palavra.replace('ç','c')
+    palavra = palavra.replace('ú','u')
+    final.append(palavra)
+medio = final
