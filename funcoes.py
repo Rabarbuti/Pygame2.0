@@ -1,11 +1,11 @@
 import pygame, sys
 import random
-from palavras import medio, dificeis
+from palavras import medio
 import random
 from turtle import pos
 from pygame.locals import *
 import time
-import jogo
+from jogo import *
 
 #Setup inicial
 pygame.init()
@@ -23,7 +23,12 @@ velocidade_da_palavra_dificil = 0.5
 pontuacao = 0
 morreu = True
 inicio = True
-
+pygame.mixer.init()
+pygame.mixer.music.load('sons/musica_jogo.wav')
+pygame.mixer.music.set_volume(0.5)
+som_perdeu = pygame.mixer.Sound('sons/fim_jogo.wav')
+som_ponto = pygame.mixer.Sound('sons/som_ponto.wav')
+mainClock = pygame.time.Clock()
 
 
 
@@ -37,10 +42,6 @@ def setando_jogo(nivel):
     if nivel == 'medio':
         palavras = medio
         palavras_jogo = random.choice(palavras)
-    else:
-        palavras = dificeis
-        palavras_jogo = random.choice(palavras)
-
 
 
 
@@ -75,56 +76,3 @@ def telaInicial_telaFinal():
             if t.type == pygame.KEYUP:
                 bandeira = False
 
-
-
-def main_menu():
-    while True:
-        fonte = pygame.font.SysFont(None, 40)
-        screen.fill((0,0,0))
-
-        mx, my = pygame.mouse.get_pos()
-
-        button_1 = pygame.Rect(255, 545, 100, 45)
-        button_2 = pygame.Rect(450, 545, 180, 45)
-        button_3 = pygame.Rect(710, 545, 180, 45)
-        tela_fundo = pygame.image.load('imagens/inicio.png')
-        tela_fundo = pygame.transform.scale(tela_fundo,(WIDTH, HEIGHT))
-        draw_text('main menu', fonte, (255, 255, 255), screen, 20, 20)
-        screen.blit(tela_fundo,(0,0))
-        if button_1.collidepoint((mx, my)):
-            if click:
-                setando_jogo('medio')
-                
-
-        if button_2.collidepoint((mx, my)):
-            if click:
-                setando_jogo('dificil')
-                #main()
-        
-        '''if button_3.collidepoint((mx, my)):
-            if click:
-                options()'''
-        pygame.draw.rect(screen, (255, 0, 0), button_1)
-        pygame.draw.rect(screen, (255, 0, 0), button_2)
-        pygame.draw.rect(screen, (255, 0, 0), button_3)
-
-        click = False
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
-                    pygame.quit()
-                    sys.exit()
-            if event.type == MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    click = True
-        
-        draw_text('Médio', fonte, (255, 255, 255), screen, 270, 556)
-        draw_text('Dificil', fonte, (255, 255, 255), screen, 500, 556)
-        draw_text('How To Play', fonte, (255, 255, 255), screen, 720, 556)
-
-        pygame.display.update()
-
-main_menu()
