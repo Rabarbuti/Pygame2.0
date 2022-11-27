@@ -115,7 +115,6 @@ def telaFinal():
     screen.blit(imagem_fundo_inicial, (0, 0))
 
     texto(screen, "Infelizmente você perdeu", 30, WIDTH / 2, HEIGHT - 200)
-    texto(screen, "Mas sua pontuação foi de: " + str(pontuacao) + ' pontos', 30, WIDTH / 2, HEIGHT -100)
 
     pygame.display.flip()
     bandeira = True
@@ -163,10 +162,7 @@ def options():
 
 #loop principal do jogo
 def game():
-    i = 0
-    if i == 0:
-        pontuacao = 0
-        i+=1
+    pontuacao = 0
     global palavras_jogo, jogador_escrevendo, xp, yp, velocidade_da_palavra_medio
     xp = random.randint(100, WIDTH-100)
     yp = 200  
