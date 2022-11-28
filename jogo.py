@@ -64,7 +64,7 @@ def draw_text(text, font, color, surface, x, y):
 
 
 def main_menu():
-    pygame.mixer.music.play()
+    #pygame.mixer.music.play()
     setando_jogo()
     while True:
 
@@ -225,12 +225,8 @@ def game():
                 else:
                     #jogador perdeu
                     som_perdeu.play()
-                    telaFinal()
-                    pygame.display.update()
-                    telaFinal()
+                    yp = HEIGHT - 80
 
-
-        
         #colocando uma altura minima que a figura do personagem possa chegar, caso ultrapasse, ele ira perder
         if yp < HEIGHT - 80:
             pygame.display.update()
