@@ -226,8 +226,8 @@ def game():
                     #jogador perdeu
                     som_perdeu.play()
                     telaFinal()
-                    telaFinal()
                     pygame.display.update()
+                    telaFinal()
 
 
         
