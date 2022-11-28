@@ -115,14 +115,18 @@ def telaFinal():
     
     bandeira = True
     while bandeira:
-        screen.fill((0,0,0))
-        screen.blit(imagem_fundo_inicial, (0, 0))
+        tela_fundo = pygame.image.load('imagens/perdeu.png')
+        tela_fundo = pygame.transform.scale(tela_fundo,(WIDTH, HEIGHT))
+        screen.blit(tela_fundo,(0,0))
         texto(screen, "Infelizmente você perdeu", 30, WIDTH / 2, HEIGHT - 200)
         fonte = pygame.font.SysFont(None, 40)
         mx, my = pygame.mouse.get_pos()
         button_4 = pygame.Rect(425, 600, 250, 45)
         pygame.draw.rect(screen, (255, 0, 0), button_4)
         draw_text('Jogar Novamente', fonte, (255, 255, 255), screen, 430, 610)
+        pygame.display.update()
+        mainClock.tick(60)
+
         if button_4.collidepoint((mx, my)):
             if pygame.mouse.get_pressed()[0] == True:
                 main_menu()
@@ -134,21 +138,20 @@ def telaFinal():
                 bandeira = False
 
             pygame.display.update()
-        pygame.display.update()
 
 def options():
     running = True
     while running:
         screen.fill((0,0,0))
-
-        font = pygame.font.SysFont(None, 40)
-        mx, my = pygame.mouse.get_pos()
-        button_3 = pygame.Rect(0,0, 100, 30)
         tela_fundo = pygame.image.load('imagens/options.png')
+        font = pygame.font.SysFont(None, 40)
         tela_fundo = pygame.transform.scale(tela_fundo,(WIDTH, HEIGHT))
         draw_text('main menu', font, (255, 255, 255), screen, 20, 20)
         draw_text('options', font, (255, 255, 255), screen, 20, 20)
         screen.blit(tela_fundo,(0,0))
+        mx, my = pygame.mouse.get_pos()
+        button_3 = pygame.Rect(0,0, 100, 30)
+
 
         if button_3.collidepoint((mx, my)):
             if pygame.mouse.get_pressed()[0] == True:
@@ -216,12 +219,17 @@ def game():
                         pontuacao +=len(palavras_jogo)
                         setando_jogo()
                         som_ponto.play()
+                        pygame.display.update()
+
                         
                 else:
                     #jogador perdeu
                     som_perdeu.play()
                     telaFinal()
+                    telaFinal()
                     pygame.display.update()
+
+
         
         #colocando uma altura minima que a figura do personagem possa chegar, caso ultrapasse, ele ira perder
         if yp < HEIGHT - 80:
