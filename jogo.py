@@ -5,32 +5,30 @@ import random
 from turtle import pos
 from pygame.locals import *
 import pygame, sys
-import time
-import funcoes
-from funcoes import *
-
 
 
 
 #Setup inicial
 pygame.init()
-WIDTH = 1080
-HEIGHT = 720
+WIDTH = 1080 #eixo x
+HEIGHT = 720 #altura
 pontuacao = 0
-preto = (0, 0, 0)
 pygame.mixer.init()
-pygame.mixer.music.load('sons/musica_jogo.wav')
+pygame.mixer.music.load('sons/musica_jogo.wav') #musica
 pygame.mixer.music.set_volume(0.5)
-som_perdeu = pygame.mixer.Sound('sons/fim_jogo.wav')
+som_perdeu = pygame.mixer.Sound('sons/fim_jogo.wav') #sons
 som_ponto = pygame.mixer.Sound('sons/som_ponto.wav')
 
+#condicoes iniciais para as funções
 mainClock = pygame.time.Clock()
 screen = pygame.display.set_mode((WIDTH, HEIGHT),0,32)
 pygame.display.set_caption('Soletra Insper')
-imagem_fundo_inicial = pygame.image.load('imagens/inicio.png') #colocar iamgem de fundo aq
+imagem_fundo_inicial = pygame.image.load('imagens/inicio.png') 
 imagem_fundo_inicial = pygame.transform.scale(imagem_fundo_inicial, (WIDTH, HEIGHT))  
 fonte_jogo = pygame.font.match_font('Algerian')
 velocidade_da_palavra_medio = 0.5
+
+#flags
 morreu = True
 inicio = True
 
@@ -50,11 +48,12 @@ def setando_jogo():
 #funcao para conseguir escrever dentro do jogo
 def texto(screen, texto, tamanho, i, j):
     font = pygame.font.Font(fonte_jogo, tamanho)
-    palavra_para_acertar = font.render(texto, True, preto)
+    palavra_para_acertar = font.render(texto, True, (0,0,0))
     acertando = palavra_para_acertar.get_rect()
     acertando.midtop = (i, j)
     screen.blit(palavra_para_acertar, acertando)
 
+#funcao para escrever dentro do jogo também, porem de forma diferente
 def draw_text(text, font, color, surface, x, y):
     textobj = font.render(text, 1, color)
     textrect = textobj.get_rect()
@@ -63,8 +62,9 @@ def draw_text(text, font, color, surface, x, y):
 
 
 
+#funcao para desenhar nosso menu na tela
 def main_menu():
-    #pygame.mixer.music.play()
+    pygame.mixer.music.play()
     setando_jogo()
     while True:
 
@@ -110,7 +110,7 @@ def main_menu():
             pygame.display.update()
 
 
-#tela inicial que funciona a base do clique em alguma tecla do jogador
+#tela final, para que possa iniciar outro jogo
 def telaFinal():
     
     bandeira = True
@@ -139,6 +139,8 @@ def telaFinal():
 
             pygame.display.update()
 
+
+#tela de HOW TO PLAY
 def options():
     running = True
     while running:
@@ -232,6 +234,7 @@ def game():
             pygame.display.update()
         else:
             telaFinal()
+            velocidade_da_palavra_medio = 0.5 #reiniciano a velocidade das palavras
             pygame.display.update()
 setando_jogo()
 main_menu()
