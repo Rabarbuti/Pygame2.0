@@ -233,6 +233,7 @@ def game():
         if yp < HEIGHT - 80:
             pygame.display.update()
         else:
+            som_perdeu.play()
             telaFinal()
             velocidade_da_palavra_medio = 0.5 #reiniciano a velocidade das palavras
             pygame.display.update()
