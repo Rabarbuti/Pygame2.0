@@ -48,7 +48,7 @@ def setando_jogo():
 #funcao para conseguir escrever dentro do jogo
 def texto(screen, texto, tamanho, i, j):
     font = pygame.font.Font(fonte_jogo, tamanho)
-    palavra_para_acertar = font.render(texto, True, (0,0,0))
+    palavra_para_acertar = font.render(texto, True, (255,0,0))
     acertando = palavra_para_acertar.get_rect()
     acertando.midtop = (i, j)
     screen.blit(palavra_para_acertar, acertando)
