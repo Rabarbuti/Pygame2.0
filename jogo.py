@@ -25,7 +25,7 @@ pygame.display.set_caption('Soletra Insper')
 imagem_fundo_inicial = pygame.image.load('imagens/inicio.png') 
 imagem_fundo_inicial = pygame.transform.scale(imagem_fundo_inicial, (WIDTH, HEIGHT))  
 fonte_jogo = pygame.font.match_font('Algerian')
-### velocidade_da_palavra_medio = 0.5
+
 
 #flags
 morreu = True
