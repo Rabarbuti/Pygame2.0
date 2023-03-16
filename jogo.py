@@ -1,10 +1,9 @@
 import pygame
 import random
-from palavras import medio
-import random
 from turtle import pos
 from pygame.locals import *
 import pygame, sys
+from classes import *
 
 
 
@@ -26,26 +25,14 @@ pygame.display.set_caption('Soletra Insper')
 imagem_fundo_inicial = pygame.image.load('imagens/inicio.png') 
 imagem_fundo_inicial = pygame.transform.scale(imagem_fundo_inicial, (WIDTH, HEIGHT))  
 fonte_jogo = pygame.font.match_font('Algerian')
-velocidade_da_palavra_medio = 0.5
+
 
 #flags
 morreu = True
 inicio = True
 
 
-#sorteia a palavra que o jogador terá que escrever
-#também sorteia a posição no eixo x que a palavra sera colocada
-def setando_jogo():
-    global palavras_jogo, jogador_escrevendo, xp, yp, velocidade_da_palavra_medio
-    xp = random.randint(100, WIDTH-100)
-    yp = 200  
-    velocidade_da_palavra_medio += 0.1
-    jogador_escrevendo = ''
-    palavra = medio
-    palavras_jogo = random.choice(palavra)
-    palavras_jogo = palavras_jogo.lower()
-
-#funcao para conseguir escrever dentro do jogo
+#funcao para conseguir escrever dentro do jogo              
 def texto(screen, texto, tamanho, i, j):
     font = pygame.font.Font(fonte_jogo, tamanho)
     palavra_para_acertar = font.render(texto, True, (255,0,0))
@@ -61,11 +48,9 @@ def draw_text(text, font, color, surface, x, y):
     surface.blit(textobj, textrect)
 
 
-
 #funcao para desenhar nosso menu na tela
 def main_menu():
     pygame.mixer.music.play()
-    setando_jogo()
     while True:
 
         fonte = pygame.font.SysFont(None, 40)
@@ -80,7 +65,6 @@ def main_menu():
 
         if button_1.collidepoint((mx, my)):
             if pygame.mouse.get_pressed()[0] == True:
-                setando_jogo()
                 game()
         
         if button_3.collidepoint((mx, my)):
@@ -179,16 +163,10 @@ def options():
 #loop principal do jogo
 def game():
     pygame.display.update()
-    setando_jogo()
-    pontuacao = 0
-    global palavras_jogo, jogador_escrevendo, xp, yp, velocidade_da_palavra_medio
-    xp = random.randint(100, WIDTH-100)
-    yp = 200  
-    velocidade_da_palavra_medio += 0.1
     jogador_escrevendo = ''
-    palavra = medio
-    palavras_jogo = random.choice(palavra)
-    palavras_jogo = palavras_jogo.lower()
+    palavra = PalavraPort()
+    pontuacao = 0
+
     while True:
         #carregando as imagens e alterando o tamanho delas
         fundo_jogo = pygame.image.load('imagens/fundo.jpg')
@@ -200,9 +178,9 @@ def game():
         screen.blit(fundo_jogo, (0,0))
 
         #indicando a posição onde cada elemento da tela vai ficar
-        yp += velocidade_da_palavra_medio
-        screen.blit(personagem, (xp, yp))
-        texto(screen, palavras_jogo, 40, xp+35,yp-40)
+        palavra.moveUm()
+        screen.blit(personagem, (palavra.x, palavra.y))
+        texto(screen, palavra.texto, 40, palavra.x+35,palavra.y-40)
         texto(screen, 'Pontos:  ' + str(pontuacao), 40, WIDTH/2,5)
         texto(screen, jogador_escrevendo, 50, WIDTH/2, 150)
 
@@ -216,10 +194,12 @@ def game():
                 jogador_escrevendo += pygame.key.name(i.key)
 
                 #conferindo se as letras do jogador correspondem a palavra sorteada
-                if palavras_jogo.startswith(jogador_escrevendo):
-                    if palavras_jogo == jogador_escrevendo:
-                        pontuacao +=len(palavras_jogo)
-                        setando_jogo()
+                if palavra.texto.startswith(jogador_escrevendo):
+                    if palavra.texto == jogador_escrevendo:
+                        pontuacao +=len(palavra.texto)
+                        palavra = PalavraPort()
+                        jogador_escrevendo = ''
+                        palavra.addSpeed()
                         som_ponto.play()
                         pygame.display.update()
 
@@ -227,15 +207,13 @@ def game():
                 else:
                     #jogador perdeu
                     som_perdeu.play()
-                    yp = HEIGHT - 80
+                    palavra.y = HEIGHT - 80
 
         #colocando uma altura minima que a figura do personagem possa chegar, caso ultrapasse, ele ira perder
-        if yp < HEIGHT - 80:
+        if palavra.y < HEIGHT - 80:
             pygame.display.update()
         else:
             som_perdeu.play()
             telaFinal()
-            velocidade_da_palavra_medio = 0.5 #reiniciano a velocidade das palavras
             pygame.display.update()
-setando_jogo()
 main_menu()
