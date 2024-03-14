@@ -28,6 +28,7 @@ imagem_fundo_inicial = pygame.transform.scale(imagem_fundo_inicial, (WIDTH, HEIG
 fonte_jogo = pygame.font.match_font('Algerian')
 velocidade_da_palavra_medio = 0.5
 
+
 #flags
 morreu = True
 inicio = True
@@ -160,21 +161,25 @@ def options():
                 main_menu()
         pygame.draw.rect(screen, (255, 0, 0), button_3)
 
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
-                    pygame.quit()
-                    sys.exit()
-            if event.type == MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    click = True
-            draw_text('Return', font, (255, 255, 255), screen, 3, 2)
-            pygame.display.update()
+        eventos()
         mainClock.tick(60)
 
+def eventos(): # Metodo extraido de options
+    tamanho = 40
+    font = pygame.font.Font(None, tamanho)
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == KEYDOWN:
+            if event.key == K_ESCAPE:
+                pygame.quit()
+                sys.exit()
+        if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+        draw_text('Return', font, (255, 255, 255), screen, 3, 2)
+        pygame.display.update()
 
 #loop principal do jogo
 def game():
@@ -202,8 +207,8 @@ def game():
         #indicando a posição onde cada elemento da tela vai ficar
         yp += velocidade_da_palavra_medio
         screen.blit(personagem, (xp, yp))
-        texto(screen, palavras_jogo, 40, xp+35,yp-40)
-        texto(screen, 'Pontos:  ' + str(pontuacao), 40, WIDTH/2,5)
+        texto(screen, palavras_jogo, 40, xp+35,yp-40)  
+        texto(screen, 'Pontos:  ' + str(pontuacao), 40, WIDTH/2,5) 
         texto(screen, jogador_escrevendo, 50, WIDTH/2, 150)
 
 
@@ -237,5 +242,7 @@ def game():
             telaFinal()
             velocidade_da_palavra_medio = 0.5 #reiniciano a velocidade das palavras
             pygame.display.update()
+
+
 setando_jogo()
 main_menu()
