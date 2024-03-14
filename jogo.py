@@ -33,6 +33,8 @@ velocidade_da_palavra_medio = 0.5
 morreu = True
 inicio = True
 
+# Introduzindo Variavel Global para tamanho para as palavras do jogo
+tamanho = 40
 
 #sorteia a palavra que o jogador terá que escrever
 #também sorteia a posição no eixo x que a palavra sera colocada
@@ -183,6 +185,7 @@ def eventos(): # Metodo extraido de options
 
 #loop principal do jogo
 def game():
+    global tamanho
     pygame.display.update()
     setando_jogo()
     pontuacao = 0
@@ -207,8 +210,8 @@ def game():
         #indicando a posição onde cada elemento da tela vai ficar
         yp += velocidade_da_palavra_medio
         screen.blit(personagem, (xp, yp))
-        texto(screen, palavras_jogo, 40, xp+35,yp-40)  
-        texto(screen, 'Pontos:  ' + str(pontuacao), 40, WIDTH/2,5) 
+        texto(screen, palavras_jogo, tamanho, xp+35,yp-40)  # atualizando para a constante global de tamanho
+        texto(screen, 'Pontos:  ' + str(pontuacao), tamanho, WIDTH/2,5)  # atualizando para a constante global de tamanho
         texto(screen, jogador_escrevendo, 50, WIDTH/2, 150)
 
 
